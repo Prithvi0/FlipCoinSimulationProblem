@@ -1,28 +1,34 @@
 #!/bin/bash -x
 echo "Welcome to Flip Coin Simulation"
 
-# Dictionary declaration
-declare -A dictionary
+# DICTIONARY DECLARATION
+declare -A Dictionary
 
-# Taking number of flips
+# CONSTANTS
+COIN_SIDES=HT
+NUMBER_OF_COINS=2	# DOUBLET COMBINATION
+
+# TAKING NUMBER OF FLIPS
 read -p "Enter number of flips: " NumberOfFlips
 
-# Looping till total number of flips
+# FUNCTION FOR COIN FLIPPING
+function NumberOfCoinFlips () {
+for ((coins=1;coins<=$NUMBER_OF_COINS;coins++))
+   do
+      echo -n "${COIN_SIDES:$((RANDOM%${#COIN_SIDES})):1}"
+   done
+   echo
+}
+
+# LOOPING TILL TOTAL NUMBER OF FLIPS AND COINS
 for ((flip=0;flip<$NumberOfFlips;flip++))
 do
-	RandomCoinFace=$((RANDOM%2))
-	if [ $RandomCoinFace -eq 0 ]
-	then
-		face="H"	# Heads
-	else
-		face="T"	# Tails
-	fi
-	dictionary[$face]=$((${dictionary[$face]}+1))	# Storing the face value in the dictionary
+	CoinFlips=$(NumberOfCoinFlips)
+	Dictionary[$CoinFlips]=$((${Dictionary[$CoinFlips]}+1))	# STORING THE FACE VALUE OF COIN IN THE DICTIONARY
 done
-# Printing the singlet combination percentage
-for coinFace in ${!dictionary[@]}
+
+# PRINTING THE DOUBLET COMBINATION PERCENTAGE
+for coinFace in ${!Dictionary[@]}
 do
-	PercentCombination="$coinFace:"`expr "scale=2;${dictionary[$coinFace]}*100/$NumberOfFlips" | bc`%
+	PercentCombination="$coinFace:"`expr "scale=2;${Dictionary[$coinFace]}*100/$NumberOfFlips" | bc`%
 done
-
-
