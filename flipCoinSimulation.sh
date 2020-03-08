@@ -6,7 +6,7 @@ declare -A Dictionary
 
 # CONSTANTS
 COIN_SIDES=HT
-NUMBER_OF_COINS=2	# DOUBLET COMBINATION
+NUMBER_OF_COINS=3	# TRIPLET COMBINATION
 
 # TAKING NUMBER OF FLIPS
 read -p "Enter number of flips: " NumberOfFlips
@@ -27,7 +27,7 @@ do
 	Dictionary[$CoinFlips]=$((${Dictionary[$CoinFlips]}+1))	# STORING THE FACE VALUE OF COIN IN THE DICTIONARY
 done
 
-# PRINTING THE DOUBLET COMBINATION PERCENTAGE
+# PRINTING THE TRIPLET COMBINATION PERCENTAGE
 for coinFace in ${!Dictionary[@]}
 do
 	PercentCombination="$coinFace:"`expr "scale=2;${Dictionary[$coinFace]}*100/$NumberOfFlips" | bc`%
